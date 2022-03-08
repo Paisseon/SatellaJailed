@@ -11,7 +11,8 @@ How to use:
 6. Attempt to make an in-app purchase, then cancel on the popup
 
 Alternatively:
-1. Use [https://appdb.to/?ref=cb9904cc802fa5380a7aa4c35fe0d0c1][2] with the in-app purchase patch. It automatically applies Satella Jailed!
+1. Use [AppDB][2] with the in-app purchase patch. It automatically applies Satella Jailed!
+
 (disclaimer: Pro subscriptions purchased using the AppDB link above give me a small cut— you won’t be charged more for it though.)
 
 Please note that Satella does not work on server-sided purchases. If it doesn’t work, chances are that I can’t fix it. You can use the included TestApp.ipa if you want to ensure that Satella Jailed is functional.
@@ -19,4 +20,4 @@ Please note that Satella does not work on server-sided purchases. If it doesn’
 Thanks to ZonD80 for the suggestion to port Satella to jailed devices, to the CyPwn admins and shouri10 for testing on iOS 15, and to AppDB for including Satella in their signing service\~
 
 [1]:	https://github.com/Paisseon/Satella2
-[2]:	https://appdb.to/?ref=cb9904cc802fa5380a7aa4c35fe0d0c1 "appDB"
+[2]:	https://appdb.to/?ref=cb9904cc802fa5380a7aa4c35fe0d0c1
