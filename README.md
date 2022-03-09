@@ -4,16 +4,15 @@ A modern in-app purchase cracker built for sideloaded applications, especially o
 
 How to use:
 1. Download Satella.dylib from here
-2. Install iPAPatcher or similar
-3. Obtain a **decrypted** .ipa of your target app
-4. Patch the .ipa to include Satella.dylib
-5. Sideload onto your device using AltStore, Sideloadly, whatever
-6. Attempt to make an in-app purchase, then cancel on the popup
+2. Obtain a **decrypted** .ipa of your target app
+3. Patch the .ipa to include Satella.dylib. This can be done in Sideloadly or iPAPatcher
+4. Sideload onto your device using the service of your choice (if you don’t have one, try Sideloadly)
+5. Attempt to make an in-app purchase, then cancel on the popup
 
 Alternatively:
-1. Use [AppDB][2] with the in-app purchase patch. It automatically applies Satella Jailed!
-
-(disclaimer: Pro subscriptions purchased using the AppDB link above give me a small cut— you won’t be charged more for it though.)
+1. Link your device to [AppDB][2] 
+2. Enable the in-app purchase patch. It automatically applies Satella Jailed!
+3. Attempt to make an in-app purchase, then cancel on the popup
 
 Please note that Satella does not work on server-sided purchases. If it doesn’t work, chances are that I can’t fix it. You can use the included TestApp.ipa if you want to ensure that Satella Jailed is functional.
 
