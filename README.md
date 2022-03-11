@@ -13,7 +13,7 @@ How to use:
 
 Alternatively:
 1. Link your device to [AppDB][2] 
-2. Enable the in-app purchase patch. It automatically applies Satella Jailed!
+2. Enable the in-app purchase patch and install an app
 3. Attempt to make an in-app purchase, then cancel on the popup
 
 Please note that Satella does not work on server-sided purchases. If it doesn’t work, chances are that I can’t fix it. You can use the included TestApp.ipa if you want to ensure that Satella Jailed is functional.
