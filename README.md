@@ -1,5 +1,7 @@
 # Satella Jailed
 
+For, um, educational purposes only or something. Definitely *don't* use this to pirate in-app purchases in apps to which you don't have legal rights.
+
 A modern in-app purchase cracker built for sideloaded applications, especially on unjailbroken devices. If you want to crack in-app purchases on jailbroken devices, including for sideloaded apps, try [Satella 2][1]
 
 ## Usage
@@ -11,7 +13,7 @@ A modern in-app purchase cracker built for sideloaded applications, especially o
 
 Alternatively:
 1. Link your device to [AppDB][2] 
-2. Enable the in-app purchase patch. It automatically applies Satella Jailed!
+2. Enable the in-app purchase patch and install an app
 3. Attempt to make an in-app purchase, then cancel on the popup
 
 You can also access Satella Jailed’s preferences by long-pressing with two fingers inside an app. By default, receipts and observer are disabled.
