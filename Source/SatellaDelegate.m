@@ -30,8 +30,10 @@
 	for (NSString *identifier in productIdentifiers) {
 		SKProduct *product = [[SKProduct alloc] init];
 		
-		[product _setPrice: [NSDecimalNumber decimalNumberWithString: @"0"]]; // returns nil if set without a string
+		[product _setPrice: [NSDecimalNumber decimalNumberWithString: @"0"]]; // returns nil if [NSDecimalNumber zero] or (NSDecimalNumber *)0 is used !!
+		[product _setPriceLocale: [NSLocale autoupdatingCurrentLocale]];
 		[product _setProductIdentifier: identifier];
+		[product _setLocalizedDescription: identifier];
 		[product _setLocalizedTitle: identifier];
 		
 		[self->products addObject: product];

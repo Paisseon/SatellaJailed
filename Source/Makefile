@@ -8,7 +8,7 @@ export DEBUG = 0
 export THEOS_LEAN_AND_MEAN = 1
 
 TWEAK_NAME = Satella
-$(TWEAK_NAME)_FILES = $(TWEAK_NAME).x SatellaObserver.m SatellaDelegate.m
+$(TWEAK_NAME)_FILES = $(TWEAK_NAME).x SatellaObserver.m SatellaDelegate.m SatellaPreferences.x
 $(TWEAK_NAME)_CFLAGS = -fobjc-arc
 $(TWEAK_NAME)_EXTRA_FRAMEWORKS = StoreKit
 

@@ -12,7 +12,7 @@
 
 - (id) initWithObserver: (id) arg0 {
 	self = [super init];
-	if (self) self->observer = arg0;
+	if (self) self->observer = nil;
 	self->purchases = [[NSMutableArray alloc] init];
 	return self;
 }
@@ -36,14 +36,16 @@
 					[self->purchases addObject: transaction.originalTransaction];
 					[queue finishTransaction: transaction.originalTransaction];
 				}
+				break;
 			
 			default:
 				[transaction _setTransactionState: 1];
 				[transaction _setError: nil];
 				[self->purchases addObject: transaction];
+				[queue finishTransaction: transaction];
 		}
 	}
 	
-	if (self->purchases) [self->observer paymentQueue: queue updatedTransactions: self->purchases];
+	[self->observer paymentQueue: queue updatedTransactions: self->purchases];
 }
 @end
