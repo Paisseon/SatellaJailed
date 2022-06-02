@@ -8,7 +8,7 @@ A modern in-app purchase cracker built for sideloaded applications, especially o
 
 1. Obtain a *decrypted* .ipa of your target app
 2. `git clone https://github.com/Paisseon/SatellaJailed.git`
-3. `cd SatellaJailed && sh patch.sh <iOS version: 12, 13, 14, or 15>`. Optional arguments are -i for input file and -o for output file.
+3. `cd SatellaJailed && sh patch.sh -v <iOS version: 12, 13, 14, or 15>`. Optional arguments are -i for input file and -o for output file.
 4. Sideload the patched .ipa to your device
 
 ## AppDB Method
