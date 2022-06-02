@@ -1,0 +1,4 @@
+module SatellaC {
+    umbrella "."
+    export *
+}
