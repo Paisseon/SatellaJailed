@@ -7,9 +7,10 @@ A modern in-app purchase cracker built for sideloaded applications, especially o
 ## Manual Method
 
 1. Obtain a *decrypted* .ipa of your target app
-2. `git clone https://github.com/Paisseon/SatellaJailed.git`
-3. `cd SatellaJailed && sh patch.sh <iOS version: 12, 13, 14, or 15>`. Optional arguments are -i for input file and -o for output file.
-4. Sideload the patched .ipa to your device
+2. Install ESign from ipa.cypwn.xyz
+3. Share the .ipa and Satella\_Jailed.zip to ESign
+4. Sign the decrypted .ipa with the contents of Satella\_Jailed.zip imported
+5. Install the patched .ipa
 
 ## AppDB Method
 
