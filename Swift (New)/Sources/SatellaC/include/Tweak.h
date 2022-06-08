@@ -59,11 +59,8 @@
 NSArray<NSString *> *productIdentifiers(SKProductsRequest *arg0) {
 	id internalRequest        = [arg0 valueForKey: @"_productsRequestInternal"];
 	NSSet *productIdentifiers = [internalRequest valueForKey: @"_productIdentifiers"];
-	if (productIdentifiers) {
-		return [productIdentifiers allObjects];
-	} else {
-		return @[@"emt.paisseon.satella.cypwn"];
-	}
+    
+	return (productIdentifiers != nil) ? [productIdentifiers allObjects] : @[@"emt.paisseon.satella"];
 }
 
 RCEntitlementInfo *blank_entitlement() {

@@ -83,7 +83,7 @@ struct SatellaPreferencesPanel: View {
                     let defaults = UserDefaults.standard
                     
                     defaults.set(enabledVal, forKey: "SatellaEnabled")
-                    defaults.set(receiptVal, forKey: "SatellaReceipt")
+                    defaults.set(receiptVal, forKey: "SatellaReceipts")
                     defaults.set(observerVal, forKey: "SatellaObserver")
                     defaults.set(revcatVal, forKey: "SatellaRevCat")
                     
@@ -120,16 +120,6 @@ class Preferences {
 		let defaults = UserDefaults.standard
         
         if defaults.object(forKey: "Satella") == nil {
-            let alert = UIAlertController(title: "Satella Jailed", message: "Thanks for using Satella Jailed! To see the preferences, long press 2 fingers to the screen.", preferredStyle: .alert)
-            
-            let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
-                alert.dismiss(animated: true)
-            })
-            
-            alert.addAction(ok)
-            
-            UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.rootViewController?.present(alert, animated: true)
-            
             defaults.set("Emilia-tan Maji Tenshi!", forKey: "Satella")
             
             defaults.set(true, forKey: "SatellaEnabled")

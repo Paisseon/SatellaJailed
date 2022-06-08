@@ -2,8 +2,8 @@ import SatellaC
 import StoreKit
 
 class SatellaDelegate: NSObject, SKProductsRequestDelegate {
-	static let shared = SatellaDelegate()
-	
+	static let shared                               = SatellaDelegate()
+    
 	public var delegate: SKProductsRequestDelegate? = nil           // the real delegate used by the app
 	private var products                            = [SKProduct]() // list of abstractions for products
 	
@@ -21,9 +21,9 @@ class SatellaDelegate: NSObject, SKProductsRequestDelegate {
 		}
 		
 		for identifier in productIdentifiers {                      // create an abstraction for each real product
-                                                                    // ⬇️ ignore the warning the compiler gives. this fixes a crash
-			let locale  = Locale(identifier: "da_DK")
+			let locale  = Locale(identifier: "da_DK")               // price says 0 always, locale doesn't matter except for crash fixing
 			let product = SKProduct()
+            
 			product._setPrice(0)
 			product._setPriceLocale(locale)
 			product._setProductIdentifier(identifier)
