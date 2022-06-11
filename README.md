@@ -26,7 +26,7 @@ Now you can make fake purchases without a jailbreak! Just attempt a purchase and
 
 1. Download the latest version of Sideloadly for Windows or MacOS from [here](https://sideloadly.io/#:~:text=download%20link.-,Download%20Sideloadly,-Windows%2064%2Dbit)
 2. Download the decrypted IPA you want to add the SatellaJailed tweak from [here](https://armconverter.com/decryptedappstore/) **(to download from armconverter you need to have a iOSGods account, if you do not have a iOSGods account, you can download the IPA from appdb)**
-3. Once you have the decrypted IPA you want to add SatellaJailed to, download SatellaJailed from the recent [releases](https://github.com/Aholicknight/SatellaJailed/releases/tag/satella-jailed.dylib) 
+3. Once you have the decrypted IPA you want to add SatellaJailed to, download SatellaJailed from the recent [releases](https://github.com/Aholicknight/SatellaJailed/releases/tag/Satellajailed-dylib) 
 ---
 ### Sideloadly: Windows 
 1. Before starting, make sure you sign in with your AppleID, once you have signed into your AppleID, your connected iPhone will show up in the iDevice tab. Make sure you also have "Advanced options" enabled.
