@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/bin/dash
+# Made by Paisseon and Sudo
 
 println() {
     printf '%s\n' "$*"
@@ -30,8 +31,14 @@ while getopts ":v:i:o:" args; do
                     unzip -o -qq "Orion_14-15.zip"
                     vers=15
                     ;;
+                16)
+                    println "[*] Satella Jailed on iOS 16 is UNTESTED. Please report your experience to Paisseon"
+                    println "[*] Unzipping Orion 14-15 framework..."
+                    unzip -o -qq "Orion_14-15.zip"
+                    vers=15
+                    ;;
                 *)
-                    println "[*] Error: Version invalid. Valid versions are: 12, 13, 14, and 15."
+                    println "[*] Error: Version invalid. Valid versions are: 12, 13, 14, 15, and 16."
                     exit
                     ;;
             esac
@@ -51,70 +58,109 @@ while getopts ":v:i:o:" args; do
     esac
 done
 
-# Ensure that -v is set
+# Ensure that $vers is set
 
 if test -z "$vers"; then
-    println "[*] Error: iOS version is not set with argument flag -v"
-    exit
+    println "[*] Target iOS version is undefined; assuming iOS 15"
+    println "[*] Unzipping Orion 14-15 framework..."
+    unzip -o -qq "Orion_14-15.zip"
+    vers=15
 fi
+
+# Move the miscellaneous assets into Orion.framework
+
+println "[*] Adding assets used in preferences..."
+cp -r Emilia Orion.framework/Emilia
 
 # Install dependencies if they don't exist already
 
 println "[*] Checking dependencies..."
 
-case "$OSTYPE" in
-    darwin*)
-        println "[*] OS detected as macOS"
-        println "[*] Installing dependencies..."
-        xcode-select --install
-        println "[*] Finished installing dependencies"
+case "$(uname -s)" in
+    *Darwin*)
+        if test -f /usr/lib/libsubstrate.dylib; then
+            println "[*] OS detected as iOS"
+            
+            if test ! -f /usr/bin/azule; then
+                println "[*] Please add these repos:"
+                println "[*] https://apt.alfhaily.me"
+                println "[*] https://level3tjg.me/repo"
+                println "[*] https://cydia.akemi.ai"
+                println "[*] https://repo.packix.com"
+                println "[*] and install the deb file from https://github.com/Al4ise/Azule/releases/latest"
+                exit
+            fi
+        else
+            println "[*] OS detected as macOS"
+            println "[*] Installing dependencies..."
+            
+            if type xcode-select >&- && xpath="$(xcode-select --print-path)" && test -d "$xpath" && test -x "$xpath"; then
+                println "[*] Xcode CLI already installed"
+            else
+                xcode-select --install
+            fi
+        fi
         ;;
-    linux-gnu*)
+    *Linux*)
         println "[*] OS detected as Linux or WSL"
         
-        if test $(/usr/bin/id -u) -ne 0; then
+        if test "$(/usr/bin/id -u)" -ne 0; then
             println "[*] Error: Needs sudo to run properly on Linux"
             exit
         fi
         
         println "[*] Installing dependencies..."
         apt install jq git curl rsync xz-utils unzip zip libxml2 libc++abi-dev
-        println "[*] Finished installing dependencies"
         ;;
     *)
-        println "[*] Error: OS is unknown or unsupported"
+        println "[*] Error: OS detected as $(uname -s), which is not supported"
         exit
         ;;
 esac
+
+println "[*] Finished installing dependencies"
 
 # Install Azule if it doesn't exist already
 
 if test ! -L "/usr/local/bin/azule"; then
     println "[*] Installing Azule..."
     
-    git clone https://github.com/Al4ise/Azule ~/Azule
-    sudo ln -sf ~/Azule/azule /usr/local/bin/azule
+    if test "$(/usr/bin/id -u)" -ne 0; then
+        println "[*] Error: Needs sudo to install Azule (this is only needed once)"
+        exit
+    fi
+    
+    git clone https://github.com/Al4ise/Azule "$HOME/Azule"
+    ln -sf "$HOME/Azule/azule" /usr/local/bin/azule
 fi
 
-# Check if an .ipa file exists in the directory above us
+# Fix pathing issues (fuck me if this still crashes)
+
+if test -f /usr/bin/install_name_tool; then
+    println "[*] Redirecting root framework calls to sandbox..."
+
+    install_name_tool -change /Library/Frameworks/CydiaSubstrate.framework/CydiaSubstrate @executable_path/Frameworks/CydiaSubstrate.framework/CydiaSubstrate Orion.framework/Orion 2>/dev/null
+    install_name_tool -change /Library/Frameworks/CydiaSubstrate.framework/CydiaSubstrate @executable_path/Frameworks/CydiaSubstrate.framework/CydiaSubstrate Satella.dylib 2>/dev/null
+    install_name_tool -change /Library/Frameworks/Orion.framework/Orion @executable_path/Frameworks/Orion.framework/Orion Satella.dylib 2>/dev/null
+else
+    println "[*] install_name_tool not found. If you experience crash on launch, use the manual patching method"
+fi
+
+# Check if an .ipa file exists nearby
 
 if test -z "$ipa"; then
     files="../*"
     
     for file in $files; do
-        if test "${file: -4}" == ".ipa"; then
+        if test "$(echo "$file" | sed 's/.ipa//')" != "$file" && test "$(echo "$file" | sed 's/_Patched.ipa//')" == "$file"; then
             ipa="$file"
         fi
     done
-fi
 
-# Check if an .ipa file exists in this directory
-
-if test -z "$ipa"; then
     files="*"
     
     for file in $files; do
-        if test "${file: -4}" == ".ipa"; then
+        if test "$(echo "$file" | sed 's/.ipa//')" != "$file" && test "$(echo "$file" | sed 's/_Patched.ipa//')" == "$file"; then
             ipa="$file"
         fi
     done
@@ -130,18 +176,14 @@ fi
 # Ensure that the $output variable is set
 
 if test -z "$output"; then
-    output="Output"
+    output="$(echo "$ipa" | sed 's/.ipa/_Patched/')"
 fi
 
 # Do stuff in Azule
 
-azule -n tmp -i "$ipa" -o ./ -f ./Orion.framework
-azule -n "$output" -i ./tmp.ipa -o ./ -f ./Satella.dylib
+azule -n "$output" -i "$ipa" -o ./ -f ./Orion.framework ./Satella.dylib -v
 
-# Remove the .ipa with only Orion
+# Finish up
 
-rm -rf tmp.ipa
-
-# We are done!
-
+rm -rf Orion.framework
 println "[*] Done!"

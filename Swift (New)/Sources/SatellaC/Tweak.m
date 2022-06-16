@@ -11,9 +11,14 @@ void (*orig_becomeKeyWindow)(UIWindow *self, SEL _cmd);
 void override_becomeKeyWindow(UIWindow *self, SEL _cmd) {
     orig_becomeKeyWindow(self, _cmd);
     
+    double touches = [[NSUserDefaults standardUserDefaults] doubleForKey:@"SatellaTouches"];
+    
+    if (!touches)
+        touches = 2.0;
+    
     UILongPressGestureRecognizer *holdGesture = [[UILongPressGestureRecognizer alloc] initWithTarget: self action: @selector(showSatellaPrefs:)];
     holdGesture.minimumPressDuration = 0.5;
-    holdGesture.numberOfTouchesRequired = 2;
+    holdGesture.numberOfTouchesRequired = (int)touches;
     [self addGestureRecognizer: holdGesture];
 }
 

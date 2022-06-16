@@ -17,7 +17,7 @@ class SatellaObserver: NSObject, SKPaymentTransactionObserver {
 			
 			switch transaction.transactionState {                                // check each possible state 
 				case .purchased:
-					purchases.append(transaction)                                // if the transaction is already marked as purchased, add it to 																					the list of purchases
+					purchases.append(transaction)                                // if the transaction is already marked as purchased, add it to the list of purchases
 					queue.finishTransaction(transaction)                         // tell the queue to finish processing this transaction
 				case .restored:
 					if let origTrans = transaction.original {                    // get the original transaction
@@ -29,7 +29,7 @@ class SatellaObserver: NSObject, SKPaymentTransactionObserver {
 						purchases.append(transaction)                            // add to the list
 						queue.finishTransaction(transaction)                     // mark transaction as having completed
 					}
-				default:                                                         // handles all other states with the same code as the else-block 																						in .restored
+				default:                                                         // handles all other states with the same code as the else-block in .restored
 					transaction._setTransactionState(.purchased)
 					transaction._setError(nil)
 					purchases.append(transaction)

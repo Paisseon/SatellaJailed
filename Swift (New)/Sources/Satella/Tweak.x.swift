@@ -18,20 +18,11 @@ class TransactionHook: ClassHook<SKPaymentTransaction> {
 	typealias Group = Main
 
 	func transactionState() -> SKPaymentTransactionState {
-        if target.original != nil {
-			return .restored
-		}
-		
-		return .purchased
+        return target.original != nil ? .restored : .purchased
 	}
 	
 	func _setTransactionState(_ arg0: SKPaymentTransactionState) {
-		if arg0 == .restored {
-			orig._setTransactionState(arg0)
-			return
-		}
-		
-		orig._setTransactionState(.purchased)
+		arg0 == .restored ? orig._setTransactionState(.restored) : orig._setTransactionState(.purchased)
 	}
 	
 	func _setError(_ arg0: NSError?) {
@@ -106,7 +97,7 @@ class RequestHook: ClassHook<SKProductsRequest> {
 }
 
 class VerifyHook: ClassHook<NSURL> {
-	typealias Group = Main
+	typealias Group = Receipt
 	
 	func initWithString(_ arg0: String) -> NSURL {
 		if arg0.contains("itunes.apple.com/verifyReceipt") {
@@ -170,7 +161,7 @@ class Satella: Tweak {
                 gui.modalPresentationStyle = .formSheet
                 gui.view.layer.cornerCurve = .continuous
                 
-                if !gui.isBeingPresented {
+                if UIApplication.shared.windows.filter ({$0.isKeyWindow}).first?.rootViewController?.presentedViewController !== gui {
                     UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.rootViewController?.present(gui, animated: true)
                 }
             }
