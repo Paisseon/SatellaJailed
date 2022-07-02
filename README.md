@@ -1,7 +1,5 @@
 # Satella Jailed
 
-## Note: This tweak is currently under development. It *should* be fixed eta son™️, but the version on the repo rn may or may not cause crashes.
-
 For, um, educational purposes only or something. Definitely *don't* use this to pirate in-app purchases in apps to which you don't have legal rights.
 
 A modern in-app purchase cracker built for sideloaded applications, especially on unjailbroken devices. If you want to crack in-app purchases on jailbroken devices, including for sideloaded apps, try [Satella 2][1]
