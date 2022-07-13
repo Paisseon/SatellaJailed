@@ -36,8 +36,6 @@ A modern in-app purchase cracker built for sideloaded applications, especially o
 
 ## AppDB Method
 
-Note: AppDB uses an old version of Satella Jailed that is missing several features and bug fixes. Recommended to use one of the above.
-
 1. Link your device to [AppDB][2] 
 2. Enable the in-app purchase patch
 3. Install an app that has in-app purchases
