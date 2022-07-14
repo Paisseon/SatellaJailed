@@ -1,4 +1,4 @@
-#!/bin/dash
+#!/bin/sh
 # Made by Paisseon and Sudo
 
 println() {
@@ -178,6 +178,11 @@ fi
 if test -z "$output"; then
     output="$(echo "$ipa" | sed 's/.ipa/_Patched/')"
 fi
+
+# Log for debug purposes
+
+println "[*] Using input file: $ipa"
+println "[*] Using output file: $output.ipa"
 
 # Do stuff in Azule
 
