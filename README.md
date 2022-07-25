@@ -28,7 +28,7 @@ A modern in-app purchase cracker built for sideloaded applications, especially o
 
 1. Obtain a *decrypted* .ipa of your target app
 2. Download the .zip of this repo and open in E-Sign
-3. Unzip your desired Orion .zip
+3. Unzip your desired Orion_\*.zip and CydiaSubstrate.zip
 4. Move Emilia directory to Orion.framework
 5. In Signature -\> More Settings, import Orion.framework, Satella.dylib, and CydiaSubstrate.framework
 6. In Signature -\> More Settings, make sure it uses @executable_path and Frameworks
