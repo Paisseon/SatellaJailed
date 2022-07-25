@@ -1,6 +1,6 @@
 # Satella Jailed
 
-For, um, educational purposes only or something. Definitely *don't* use this to pirate in-app purchases in apps to which you don't have legal rights.
+For, um, educational purposes only or something. Definitely *don't* use this to pirate in-app purchases in apps to which you don't have legal rights to do security testing 🙃
 
 A modern in-app purchase cracker built for sideloaded applications, especially on unjailbroken devices. If you want to crack in-app purchases on jailbroken devices, including for sideloaded apps, try [Satella 2][1]
 
@@ -22,8 +22,7 @@ A modern in-app purchase cracker built for sideloaded applications, especially o
 4. Move Emilia directory to Orion.framework
 5. Inject Satella.dylib and Orion.framework into the target .ipa
 6. Ensure that Orion.framework and CydiaSubstrate.framework are located in @executable\_path/Frameworks
-7. Ensure that the load commands for Orion.framework/Orion and Satella.dylib use @executable\_path/Frameworks instead of /Library/Frameworks
-8. Sideload the patched .ipa
+7. Sideload the patched .ipa
 
 ## E-Sign Method
 
@@ -32,7 +31,8 @@ A modern in-app purchase cracker built for sideloaded applications, especially o
 3. Unzip your desired Orion .zip
 4. Move Emilia directory to Orion.framework
 5. In Signature -\> More Settings, import Orion.framework, Satella.dylib, and CydiaSubstrate.framework
-6. Sign and install the patched .ipa
+6. In Signature -\> More Settings, make sure it uses @executable_path and Frameworks
+7. Sign and install the patched .ipa
 
 ## AppDB Method
 
