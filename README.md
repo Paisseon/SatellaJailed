@@ -28,7 +28,7 @@ A modern in-app purchase cracker built for sideloaded applications, especially o
 
 **If you are using the E-Sign method make sure the `Orion.framework` has the Emilia folder inside otherwise it will crash.** 
 
-**The `Orion.framework` with the Emilia folder already applied can be downloaded [here](https://filecrypt.cc/Container/33A5857079.html) or download the `Orion.zip` with the Emilia name in this repo.**
+**The `Orion.framework` with the Emilia folder already applied can be downloaded [here](https://www.mirrored.to/multilinks/nw0l68dq7k) or download the `Orion.zip` with the Emilia name in this repo.**
 
 1. Obtain a *decrypted* .ipa of your target app
 2. Download the .zip of this repo and open in E-Sign
