@@ -2,42 +2,57 @@ import SatellaC
 import StoreKit
 
 class SatellaDelegate: NSObject, SKProductsRequestDelegate {
-	static let shared                               = SatellaDelegate()
+    static let shared    = SatellaDelegate()
     
-	public var delegate: SKProductsRequestDelegate? = nil           // the real delegate used by the app
-	private var products                            = [SKProduct]() // list of abstractions for products
-	
-	func productsRequest(_ arg0: SKProductsRequest, didReceive arg1: SKProductsResponse) {
-		if arg1.products.count > 0 {
-			delegate?.productsRequest(arg0, didReceive: arg1)       // if we are not in a sideloaded app, use the normal response
-			return
-		}
-		
-		let response           = SKProductsResponse()               // create an empty response
-		let productIdentifiers = productIdentifiers(arg0)           // get the identifiers used by the app (see Tweak.h)
-		
-		guard let productIdentifiers = productIdentifiers else {
-			return
-		}
-		
-		for identifier in productIdentifiers {                      // create an abstraction for each real product
-			let locale  = Locale(identifier: "da_DK")               // price says 0 always, locale doesn't matter except for crash fixing
-			let product = SKProduct()
+    public var delegates = [SKProductsRequestDelegate]()
+    private var products = [SKProduct]()
+    
+    func productsRequest(_ arg0: SKProductsRequest, didReceive arg1: SKProductsResponse) {
+        
+        // If the products is not empty, that means the app is not sideloaded so we should just let iOS handle it normally
+        
+        if arg1.products.count > 0 {
+            for delegate in delegates {
+                delegate.productsRequest(arg0, didReceive: arg1)
+            }
             
-			product._setPrice(0)
-			product._setPriceLocale(locale)
-			product._setProductIdentifier(identifier)
-			product._setLocalizedDescription(identifier)
-			product._setLocalizedTitle(identifier)
-			
-			products.append(product)                                // add to our hacked product list
-		}
-		
-		response._setProducts(products)                             // fill the response with hacked products
-		delegate?.productsRequest(arg0, didReceive: response)       // and send it to the app, which will now think it has connected to iTunes
-	}
-	
-	private override init() {
-		super.init()
-	}
+            return
+        }
+        
+        // Create a blank response and a list of identifier names. Refer to SatellaC/include/Tweak.h
+        
+        let response           = SKProductsResponse()
+        let productIdentifiers = productIdentifiers(arg0)
+        
+        guard let productIdentifiers = productIdentifiers else {
+            return
+        }
+        
+        // Create an actual SKProduct for each identifier code
+        
+        for identifier in productIdentifiers {
+            let locale  = Locale(identifier: "da_DK")
+            let product = SKProduct()
+            
+            product._setPrice(0)
+            product._setPriceLocale(locale)
+            product._setProductIdentifier(identifier)
+            product._setLocalizedDescription(identifier)
+            product._setLocalizedTitle(identifier)
+            
+            products.append(product)
+        }
+        
+        // Send the list of product abstractions to the app
+        
+        response._setProducts(products)
+        
+        for delegate in delegates {
+            delegate.productsRequest(arg0, didReceive: response)
+        }
+    }
+    
+    private override init() {
+        super.init()
+    }
 }

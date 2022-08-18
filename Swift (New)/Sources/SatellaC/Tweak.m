@@ -11,7 +11,7 @@ void (*orig_becomeKeyWindow)(UIWindow *self, SEL _cmd);
 void override_becomeKeyWindow(UIWindow *self, SEL _cmd) {
     orig_becomeKeyWindow(self, _cmd);
     
-    double touches = [[NSUserDefaults standardUserDefaults] doubleForKey:@"SatellaTouches"];
+    double touches = [[NSUserDefaults standardUserDefaults] doubleForKey:@"satella_touches"];
     
     if (!touches)
         touches = 2.0;

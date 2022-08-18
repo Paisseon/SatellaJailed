@@ -2,10 +2,13 @@ Package: emt.paisseon.satellajailed
 Name: Satella Jailed
 Author: Paisseon
 Maintainer: Paisseon
-Description: Modern in-app purchase cracker for jailed devices
-Version: 1.2
+Description: Jailed in-app purchase cracker
+Version: 1.3.2
 Depends:  ${ORION}, firmware (>= 12.2)
+Conflicts: ai.paisseon.satella
 Architecture: iphoneos-arm
-Section: Tweaks
+Section: Tweaks (Piracy)
 Priority: optional
-
+Icon: https://paisseon.github.io/icons/satella.png
+SileoDepiction: https://paisseon.github.io/depictions/satella.json
+Depiction: https://paisseon.github.io/depictions/ButNobodyCame.html

@@ -7,7 +7,7 @@ println() {
 
 # Read arguments
 
-while getopts ":v:i:o:" args; do
+while getopts ":v:i:o:x" args; do
     case "${args}" in
         v)
             case "${OPTARG}" in
@@ -32,6 +32,7 @@ while getopts ":v:i:o:" args; do
                     vers=15
                     ;;
                 16)
+                    println "[*] Satella Jailed on iOS 16 is UNTESTED. Please report your experience to Paisseon"
                     println "[*] Unzipping Orion 14-15 framework..."
                     unzip -o -qq "Orion_14-15.zip"
                     vers=15
@@ -50,6 +51,10 @@ while getopts ":v:i:o:" args; do
             println "[*] Setting output file as ${OPTARG}"
             output="${OPTARG}"
             ;;
+        x)
+            println "[*] Set to transfer file to device after patching"
+            transfer=true
+            ;;
         *)
             println "[*] Error: Invalid argument: ${OPTARG}. Satella Jailed patcher accepts only -v, -i, and -o arguments"
             exit
@@ -57,10 +62,10 @@ while getopts ":v:i:o:" args; do
     esac
 done
 
-# Ensure that -v is set
+# Ensure that $vers is set
 
 if test -z "$vers"; then
-    println "[*] iOS version is undefined; assuming iOS 15"
+    println "[*] Target iOS version is undefined; assuming iOS 15"
     println "[*] Unzipping Orion 14-15 framework..."
     unzip -o -qq "Orion_14-15.zip"
     vers=15
@@ -178,9 +183,25 @@ if test -z "$output"; then
     output="$(echo "$ipa" | sed 's/.ipa/_Patched/')"
 fi
 
+# Log for debug purposes
+
+println "[*] Input: $ipa"
+println "[*] Output: $output.ipa"
+
 # Do stuff in Azule
 
 azule -n "$output" -i "$ipa" -o ./ -f ./Orion.framework ./Satella.dylib -v
+
+# Transfer to device
+
+if test $transfer; then
+    if test -f /usr/local/bin/xenon; then
+        println "[*] Transferring to device"
+        xenon "$output.ipa"
+    else
+        println "[*] Transfer not initiated as xenon doesn't exist"
+    fi
+fi
 
 # Finish up
 

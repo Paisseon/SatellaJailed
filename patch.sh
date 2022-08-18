@@ -7,7 +7,7 @@ println() {
 
 # Read arguments
 
-while getopts ":v:i:o:" args; do
+while getopts ":v:i:o:x" args; do
     case "${args}" in
         v)
             case "${OPTARG}" in
@@ -50,6 +50,10 @@ while getopts ":v:i:o:" args; do
         o)
             println "[*] Setting output file as ${OPTARG}"
             output="${OPTARG}"
+            ;;
+        x)
+            println "[*] Set to transfer file to device after patching"
+            transfer=true
             ;;
         *)
             println "[*] Error: Invalid argument: ${OPTARG}. Satella Jailed patcher accepts only -v, -i, and -o arguments"
@@ -181,12 +185,23 @@ fi
 
 # Log for debug purposes
 
-println "[*] Using input file: $ipa"
-println "[*] Using output file: $output.ipa"
+println "[*] Input: $ipa"
+println "[*] Output: $output.ipa"
 
 # Do stuff in Azule
 
 azule -n "$output" -i "$ipa" -o ./ -f ./Orion.framework ./Satella.dylib -v
+
+# Transfer to device
+
+if test $transfer; then
+    if test -f /usr/local/bin/xenon; then
+        println "[*] Transferring to device"
+        xenon "$output.ipa"
+    else
+        println "[*] Transfer not initiated as xenon doesn't exist"
+    fi
+fi
 
 # Finish up
 

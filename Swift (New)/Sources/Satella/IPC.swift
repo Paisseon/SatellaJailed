@@ -4,7 +4,7 @@ final class IPC {
     static let shared                         = IPC()
     var observers: [String: (String) -> Void] = [:]
     
-    func addObserver(`as` name: String, using block: @escaping (String) -> Void) {
+    func observe(_ name: String, using block: @escaping (String) -> Void) {
         observers[name] = block
     
         let callback: CFNotificationCallback  = { _, _, name, _, _ in
@@ -19,6 +19,16 @@ final class IPC {
             name as CFString,
             nil,
             .deliverImmediately
+        )
+    }
+    
+    func post(name: String) {
+        CFNotificationCenterPostNotification(
+            CFNotificationCenterGetDarwinNotifyCenter(),
+            CFNotificationName(name as CFString),
+            nil,
+            nil,
+            true
         )
     }
 }
