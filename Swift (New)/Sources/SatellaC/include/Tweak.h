@@ -1,4 +1,3 @@
-#import <objc/runtime.h>
 #import <StoreKit/StoreKit.h>
 
 @interface SKPaymentTransaction (Satella)

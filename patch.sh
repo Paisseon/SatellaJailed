@@ -31,14 +31,8 @@ while getopts ":v:i:o:x" args; do
                     unzip -o -qq "Orion_14-15.zip"
                     vers=15
                     ;;
-                16)
-                    println "[*] Satella Jailed on iOS 16 is UNTESTED. Please report your experience to Paisseon"
-                    println "[*] Unzipping Orion 14-15 framework..."
-                    unzip -o -qq "Orion_14-15.zip"
-                    vers=15
-                    ;;
                 *)
-                    println "[*] Error: Version invalid. Valid versions are: 12, 13, 14, 15, and 16."
+                    println "[*] Error: Version invalid. Valid versions are: 12, 13, 14, and 15."
                     exit
                     ;;
             esac
@@ -70,11 +64,6 @@ if test -z "$vers"; then
     unzip -o -qq "Orion_14-15.zip"
     vers=15
 fi
-
-# Move the miscellaneous assets into Orion.framework
-
-println "[*] Adding assets used in preferences..."
-cp -r Emilia Orion.framework/Emilia
 
 # Install dependencies if they don't exist already
 
@@ -177,10 +166,10 @@ if test -z "$ipa"; then
     exit
 fi
 
-# Ensure that the $output variable is set
+# Ensure that the $output variable is set and there are no spaces
 
 if test -z "$output"; then
-    output="$(echo "$ipa" | sed 's/.ipa/_Patched/')"
+    output="$(echo "$ipa" | sed 's/\ /_/g' | sed 's/.ipa/_Patched/')"
 fi
 
 # Log for debug purposes
