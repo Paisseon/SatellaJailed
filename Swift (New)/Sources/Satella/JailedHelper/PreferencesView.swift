@@ -8,6 +8,7 @@ struct PreferencesView: View {
     @AppStorage("enabled") var isEnabled: Bool = true
     @AppStorage("receipt") var receipts: Bool  = true
     @AppStorage("observer") var observer: Bool = true
+    @AppStorage("hidden") var isHidden: Bool   = false
     @State private var isShowingOptions: Bool  = false
     @Binding var isShowing: Bool
     
@@ -16,6 +17,10 @@ struct PreferencesView: View {
             ScrollView(showsIndicators: false) {
                 LazyVStack {
                     Button(action: {
+                        if isHidden {
+                            IPC.shared.post("tella.hideUntilNextLaunch")
+                        }
+                        
                         isShowing.toggle()
                     }) {
                         Image(systemName: "xmark.square.fill")
@@ -47,7 +52,7 @@ struct PreferencesView: View {
                             .padding()
                         Toggle("", isOn: $isEnabled)
                     }
-                    .padding([.leading, .trailing])
+                        .padding([.leading, .trailing])
                     
                     if isEnabled {
                         HStack {
@@ -55,26 +60,33 @@ struct PreferencesView: View {
                                 .padding()
                             Toggle("", isOn: $observer)
                         }
-                        .padding([.leading, .trailing])
+                            .padding([.leading, .trailing])
                         
                         HStack {
                             Text("Receipts")
                                 .padding()
                             Toggle("", isOn: $receipts)
                         }
-                        .padding([.leading, .trailing, .bottom])
+                            .padding([.leading, .trailing, .bottom])
                     }
+                    
+                    HStack {
+                        Text("Hide Forever")
+                            .padding()
+                        Toggle("", isOn: $isHidden)
+                    }
+                        .padding([.leading, .trailing])
                     
                     HStack(alignment: .center) {
                         Button("Apply") {
                             isShowingOptions.toggle()
                         }
-                        .foregroundColor(.white)
-                        .padding()
-                        .padding([.leading, .trailing])
-                        .background(RoundedRectangle(cornerRadius: 13, style: .continuous)
-                                        .fill(Color(red: 0.80, green: 0.63, blue: 0.87)))
-                        .padding(.top)
+                            .foregroundColor(.white)
+                            .padding()
+                            .padding([.leading, .trailing])
+                            .background(RoundedRectangle(cornerRadius: 13, style: .continuous)
+                                            .fill(Color(red: 0.80, green: 0.63, blue: 0.87)))
+                            .padding(.top)
                     }
                 }
             }

@@ -34,7 +34,7 @@ A modern in-app purchase cracker built for sideloaded applications, especially o
 
 ## AppDB Method
 
-1. Link your device to [AppDB][2] 
+1. Link your device to [AppDB][2]
 2. Enable the in-app purchase patch
 3. Install an app that has in-app purchases
 
@@ -48,6 +48,7 @@ The configurable options are:
 - Enabled: Enable or disable all features of Satella Jailed.
 - Receipt: Spoof receipts for purchases. This works well on iOS 12-13, not so much on 14-15.
 - Observer: Replace the app’s transaction observer with a hacked one
+- Hide Forever: Hide the Satella button until you delete/reinstall the app
 - Apply: Gives options to hide the Satella logo, close the app (i.e., apply your changes), or view Satella Jailed’s source code.
 
 [1]:	https://github.com/Paisseon/Satella2

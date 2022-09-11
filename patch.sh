@@ -5,7 +5,7 @@ println() {
     printf '%s\n' "$*"
 }
 
-# Read arguments
+# Read arguments. If you're not me, ignore the -x flag
 
 while getopts ":v:i:o:x" args; do
     case "${args}" in
@@ -71,25 +71,13 @@ println "[*] Checking dependencies..."
 
 case "$(uname -s)" in
     *Darwin*)
-        if test -f /usr/lib/libsubstrate.dylib; then
-            println "[*] OS detected as iOS"
-            
-            if test ! -f /usr/bin/azule; then
-                println "[*] Please add these repos:"
-                println "[*] https://apt.alfhaily.me"
-                println "[*] https://level3tjg.me/repo"
-                println "[*] https://cydia.akemi.ai"
-                println "[*] https://repo.packix.com"
-                println "[*] and install the deb file from https://github.com/Al4ise/Azule/releases/latest"
-                exit
-            fi
-        else
+        if test ! -f /usr/lib/libsubstrate.dylib; then
             println "[*] OS detected as macOS"
-            println "[*] Installing dependencies..."
             
             if type xcode-select >&- && xpath="$(xcode-select --print-path)" && test -d "$xpath" && test -x "$xpath"; then
                 println "[*] Xcode CLI already installed"
             else
+                println "[*] Installing dependencies..."
                 xcode-select --install
             fi
         fi
@@ -116,15 +104,8 @@ println "[*] Finished installing dependencies"
 # Install Azule if it doesn't exist already
 
 if test ! -L "/usr/local/bin/azule"; then
-    println "[*] Installing Azule..."
-    
-    if test "$(/usr/bin/id -u)" -ne 0; then
-        println "[*] Error: Needs sudo to install Azule (this is only needed once)"
-        exit
-    fi
-    
-    git clone https://github.com/Al4ise/Azule "$HOME/Azule"
-    ln -sf "$HOME/Azule/azule" /usr/local/bin/azule
+    println "[*] Please install Azule from https://github.com/Al4ise/Azule/wiki to continue"
+    exit
 fi
 
 # Fix pathing issues (fuck me if this still crashes)
@@ -177,11 +158,11 @@ fi
 println "[*] Input: $ipa"
 println "[*] Output: $output.ipa"
 
-# Do stuff in Azule
+# Weakly inject Orion.framework, Satella.dylib, and Libhooker
 
-azule -n "$output" -i "$ipa" -o ./ -f ./Orion.framework ./Satella.dylib -v
+azule -n "$output" -i "$ipa" -o ./ -f ./Orion.framework ./Satella.dylib -v -H -u -w
 
-# Transfer to device
+# Transfer to device if the -x flag is enabled
 
 if test $transfer; then
     if test -f /usr/local/bin/xenon; then

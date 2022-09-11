@@ -129,10 +129,12 @@ class VerifyHook: ClassHook<NSURL> {
 class Satella: Tweak {
 	required init() {
         if #available(iOS 14, *) {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-                let window = SatellaWindow.shared
-                window.makeKeyAndVisible()
-            })
+            if UserDefaults.standard.bool(forKey: "hidden") != true {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                    let window = SatellaWindow.shared
+                    window.makeKeyAndVisible()
+                })
+            }
             
             if Preferences.shared.enabled {
                 Core().activate()
