@@ -103,7 +103,7 @@ println "[*] Finished installing dependencies"
 
 # Install Azule if it doesn't exist already
 
-if test ! -L "/usr/local/bin/azule"; then
+if test ! -f "/usr/local/bin/azule"; then
     println "[*] Please install Azule from https://github.com/Al4ise/Azule/wiki to continue"
     exit
 fi
