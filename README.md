@@ -6,7 +6,7 @@ A modern in-app purchase cracker built for sideloaded applications, especially o
 
 ## Script Method
 
-1. Obtain a *decrypted* .ipa of your target app
+1. Obtain a **decrypted** .ipa of your target app
 2. Clone this repo to your PC
 3. Run the patch.sh script. Optional arguments are:
 	- -v for version, i.e., 15
@@ -16,7 +16,7 @@ A modern in-app purchase cracker built for sideloaded applications, especially o
 
 ## Manual Method
 
-1. Obtain a *decrypted* .ipa of your target app
+1. Obtain a **decrypted** .ipa of your target app
 2. Clone this repo to your PC
 3. Extract the Orion zip for your iOS version
 4. Inject Satella.dylib and Orion.framework into the target .ipa
@@ -25,7 +25,7 @@ A modern in-app purchase cracker built for sideloaded applications, especially o
 
 ## E-Sign Method
 
-1. Obtain a *decrypted* .ipa of your target app
+1. Obtain a **decrypted** .ipa of your target app
 2. Download the .zip of this repo and open in E-Sign
 3. Unzip your desired Orion\_\*.zip and CydiaSubstrate.zip
 4. In Signature -\> More Settings, import Orion.framework, Satella.dylib, and CydiaSubstrate.framework
@@ -37,6 +37,12 @@ A modern in-app purchase cracker built for sideloaded applications, especially o
 1. Link your device to [AppDB][2]
 2. Enable the in-app purchase patch
 3. Install an app that has in-app purchases
+
+## AppDB Method (MyAppStore)
+1. Obtain a **decrypted** .ipa of your target app
+2. Upload the **decrypted** .ipa to https://appdb.to/my/store
+3. Once the app is done uploading enable in-app purchase patch
+4. Install the app that has in-app purchases
 
 \#\# 
 
