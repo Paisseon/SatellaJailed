@@ -160,7 +160,7 @@ println "[*] Output: $output.ipa"
 
 # Weakly inject Orion.framework, Satella.dylib, and Libhooker
 
-azule -n "$output" -i "$ipa" -o ./ -f ./Orion.framework ./Satella.dylib -v -H -u -w
+azule -n "$output" -i "$ipa" -o ./ -f ./Orion.framework ./Satella.dylib -v -u -w
 
 # Transfer to device if the -x flag is enabled
 
