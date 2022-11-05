@@ -1,0 +1,9 @@
+Package: lilliana.satellajailed
+Name: SatellaJailed
+Version: 1.4
+Architecture: iphoneos-arm
+Description: If you see this, Pais forgot to add a description lol
+Maintainer: Lilliana
+Author: Lilliana
+Section: Tweaks
+Depends: firmware (>= 12.2)
