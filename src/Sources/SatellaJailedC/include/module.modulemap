@@ -1,0 +1,4 @@
+module SatellaJailedC {
+    umbrella "."
+    export *
+}

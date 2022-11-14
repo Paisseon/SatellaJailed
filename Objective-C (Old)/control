@@ -1,9 +1,0 @@
-Package: emt.paisseon.satella-jailed
-Name: Satella Jailed
-Version: 1.0
-Architecture: iphoneos-arm
-Description: Crack in-app purchases on jailed devices
-Maintainer: Paisseon
-Author: Paisseon
-Section: Tweaks
-Depends: firmware (>= 12.0)

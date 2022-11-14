@@ -1,10 +1,11 @@
 # Satella Jailed
+*Free in-app purchases for jailed devices on iOS 12-16*
 
-For, um, educational purposes only or something. Definitely *don't* use this to pirate in-app purchases in apps to which you don't have legal rights to do security testing 🙃
+Satella Jailed is provided for educational purposes only and I am not responsible for any illegal actions taken with the use of this tool. No copyright material is distributed on this repo. Lawyer with a DMCA can stick it up their ass.
 
-A modern in-app purchase cracker built for sideloaded applications, especially on unjailbroken devices. If you want to crack in-app purchases on jailbroken devices, including for sideloaded apps, try [Satella 2][1]
+I am also not responsible for Satella Jailed not working on any given app. Try the app “Fight Club 5” before contacting me or making an issue. I also recommend trying several configurations.
 
-## Script Method
+Devices on a version earlier than iOS 14.0 will not have the floating preferences menu. If you are on 12-13 there is no reason to be using this as Satella works better for jailbroken devices.
 
 1. Obtain a **decrypted** .ipa of your target app
 2. Clone this repo to your PC
@@ -14,7 +15,12 @@ A modern in-app purchase cracker built for sideloaded applications, especially o
 	- -o for output, i.e., App\_Satella
 4. Sideload the patched .ipa
 
-## Manual Method
+## Azule Script (Computer or Jailbreak Required)
+1. Get a *decrypted* .ipa for the app you want to modify
+2. `git clone https://github.com/Paisseon/SatellaJailed.git && cd SatellaJailed`
+3. Move the .ipa into the SatellaJailed folder
+4. `sh patch.sh`
+5. Sideload the patched app to your jailed device
 
 1. Obtain a **decrypted** .ipa of your target app
 2. Clone this repo to your PC
@@ -22,8 +28,14 @@ A modern in-app purchase cracker built for sideloaded applications, especially o
 4. Inject Satella.dylib and Orion.framework into the target .ipa
 5. Ensure that Orion.framework and CydiaSubstrate.framework are located in @executable\_path/Frameworks
 6. Sideload the patched .ipa
+## Esign (On-Device)
+If you don’t already have it, Esign can be installed from [this website]
 
-## E-Sign Method
+1. Get a *decrypted* .ipa for the app you want to modify
+2. Download SatellaJailed.dylib from this repo
+3. In Signature -> More Settings, import SatellaJailed.dylib
+4. In Signature -> More Settings, make sure to use “@executable\_path” and “Frameworks”
+5. Sign and install the patched .ipa
 
 1. Obtain a **decrypted** .ipa of your target app
 2. Download the .zip of this repo and open in E-Sign
@@ -32,7 +44,10 @@ A modern in-app purchase cracker built for sideloaded applications, especially o
 5. In Signature -\> More Settings, make sure it uses @executable\_path and Frameworks
 6. Sign and install the patched .ipa
 
-## AppDB Method
+1. Get a *decrypted* .ipa for the app you want to modify
+2. Download SatellaJailed.dylib from this repo
+3. Inject SatellaJailed.dylib into the .ipa
+4. Sideload the patched app to your jailed device
 
 1. Link your device to [AppDB][2]
 2. Enable the in-app purchase patch
