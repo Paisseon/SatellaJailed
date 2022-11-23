@@ -1,49 +1,41 @@
 #!/bin/sh
 # Made by Paisseon and Sudo
 
-# Fancy colors
-reset="\e[0m"
-faint="\e[2m"
-red="\e[31m"
-black="\e[30m"
-green="\e[32m"
-yellow="\e[33m"
+# Fancy colors, courtesy of ja1dan
+
+reset="\033[0m"
+faint="\033[38;5;249m"
+red="\033[38;5;196m"
+black="\033[38;5;244m"
+green="\033[38;5;46m"
+yellow="\033[38;5;226m"
 
 info="${black}${faint}[${reset}${green}*${reset}${black}${faint}]${reset}"
 error="${black}${faint}[${reset}${red}!${reset}${black}${faint}]${reset}"
-warn="${black}${faint}[${reset}${yellow}!${reset}${black}${faint}]$reset}"
-
-println() {
-    echo -e "$*"
-}
+warn="${black}${faint}[${reset}${yellow}!${reset}${black}${faint}]${reset}"
 
 # Read arguments. If you're not me, ignore the -x flag
 
-while getopts ":v:i:o:xy" args; do
+while getopts ":v:i:o:x" args; do
     case "${args}" in
         v)
-            println "$warn The -v flag no longer does anything"
+            echo "$warn The -v flag no longer does anything"
             ;;
         i)
-            println "$info Setting input file as ${OPTARG}"
+            echo "$info Setting input file as ${OPTARG}"
             ipa="${OPTARG}"
             ;;
         o)
-            println "$info Setting output file as ${OPTARG}"
+            echo "$info Setting output file as ${OPTARG}"
             output="${OPTARG}"
             ;;
         x)
-            println "$info Set to transfer file to iPad after patching"
+            echo "$info Set to transfer file after patching"
             transfer=true
             device=0
             ;;
-        y)
-            println "$info Set to transfer file to iPhone after patching"
-            transfer=true
-            device=1
-            ;;
         *)
-            println "$error Invalid argument: ${OPTARG}. Satella Jailed patcher accepts only -i, and -o arguments"
+            echo "$error Invalid argument: ${OPTARG}. Satella Jailed patcher accepts only -i, and -o arguments"
             exit
             ;;
     esac
@@ -52,26 +44,25 @@ done
 # Say to install Azule if it doesn't exist already
 
 if [ ! -f "$(which azule)" ]; then
-    println "$error Please install Azule from https://github.com/Al4ise/Azule/wiki to continue"
+    echo "$error Please install Azule from https://github.com/Al4ise/Azule/wiki to continue"
+    echo "$error If you already have Azule, try typing 'azule -h' and send me the output"
     exit
 fi
 
 # Check if an .ipa file exists nearby
 
 if [ -z "$ipa" ]; then
-    files="../*"
-    
-    for file in $files; do
-        if [ "$(echo "$file" | sed 's/.ipa//')" != "$file" ] && [ "$(echo "$file" | sed 's/_Patched.ipa//')" == "$file" ]; then
-            ipa="$file"
-        fi
-    done
-
     files="*"
-    
+
     for file in $files; do
-        if [ "$(echo "$file" | sed 's/.ipa//')" != "$file" ] && [ "$(echo "$file" | sed 's/_Patched.ipa//')" == "$file" ]; then
-            ipa="$file"
+        if [ "${file#${file%????}}" = ".ipa" ]; then
+            name="${file%????}"
+            
+            if [ "${name#${name%????????}}" != "_Patched" ]; then
+                echo "$info Setting input file as $file"
+                ipa="$file"
+                break
+            fi
         fi
     done
 fi
@@ -79,7 +70,7 @@ fi
 # Exit if the $ipa variable is not set
 
 if [ -z "$ipa" ]; then
-    println "$error Couldn't find .ipa file"
+    echo "$error Couldn't find .ipa file"
     exit
 fi
 
@@ -87,26 +78,24 @@ fi
 
 if [ -z "$output" ]; then
     output="$(echo "$ipa" | sed 's/\ /_/g' | sed 's/.ipa/_Patched/')"
+    echo "$info Setting output file as $output.ipa"
 fi
 
-# Log for debug purposes
-
-println "$info Input: $ipa"
-println "$info Output: $output.ipa"
-
 # Inject SatellaJailed to the app using Azule
-azule -n "$output" -i "$ipa" -o ./ -f ./SatellaJailed.dylib -muvw | sed -u -r "s/(\[\*\])/$(println $info)/g"
+
+azule -n "$output" -i "$ipa" -o ./ -f ./SatellaJailed.dylib -muvwz | sed -u -r "s/(\[\*\])/$(echo $info)/g"
 
 # Transfer to device if the -x flag is enabled
-if [ $transfer ]; then
+
+if [ "$transfer" ]; then
     if [ -f /usr/local/bin/xenon ]; then
-        println "$info Transferring to device"
+        echo "$info Transferring to device"
         xenon "$output.ipa" "$device"
     else
-        println "$warn Transfer not initiated as xenon isn't installed."
+        echo "$warn Transfer not initiated as xenon isn't installed"
     fi
 fi
 
 # Finish up
 
-println "$info Done!"
+echo "$info Done!"
