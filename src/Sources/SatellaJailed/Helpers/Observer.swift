@@ -1,12 +1,6 @@
 import StoreKit
 
 final class SatellaObserver: NSObject, SKPaymentTransactionObserver {
-    // MARK: Lifecycle
-
-    override private init() {
-        super.init()
-    }
-
     // MARK: Internal
 
     static let shared: SatellaObserver = .init()

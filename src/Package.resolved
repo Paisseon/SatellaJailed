@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Jinx",
+        "repositoryURL": "https://github.com/Paisseon/Jinx.git",
+        "state": {
+          "branch": null,
+          "revision": "2e1098e3cf4de3d8b89591ba73b75ee2bee8572f",
+          "version": "1.0.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

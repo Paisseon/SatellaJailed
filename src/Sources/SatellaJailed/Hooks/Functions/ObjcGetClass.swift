@@ -1,4 +1,5 @@
-import Foundation.NSObjCRuntime
+import CoreFoundation
+import Jinx
 
 struct ObjcGetClass: HookFunc {
     typealias T = @convention(c) (
@@ -12,7 +13,7 @@ struct ObjcGetClass: HookFunc {
             return nil
         }
         
-        let orig: T = PowPow.unwrap(ObjcGetClass.self)!
+        let orig: T = PowPow.orig(ObjcGetClass.self)!
         return orig(name)
     }
 }

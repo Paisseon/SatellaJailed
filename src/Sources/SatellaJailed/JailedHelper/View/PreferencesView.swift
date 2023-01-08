@@ -36,6 +36,8 @@ struct PreferencesView: View {
                             SatellaShape()
                                 .scale(0.2)
                                 .frame(width: 50, height: 50)
+                                .padding(.leading, -57)
+                                .padding(.top, -57)
                         )
                         .frame(width: 50, height: 50)
                         .padding()

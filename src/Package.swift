@@ -3,86 +3,70 @@
 import PackageDescription
 import Foundation
 
-let projectDir = URL(fileURLWithPath: #filePath).deletingLastPathComponent()
-
-@dynamicMemberLookup struct TheosConfiguration {
-    private let dict: [String: String]
-    init(at path: String) {
-        let configURL = URL(fileURLWithPath: path, relativeTo: projectDir)
-        guard let infoString = try? String(contentsOf: configURL) else {
-            fatalError("""
-            Could not find Theos SPM config. Have you run `make spm` yet?
-            """)
+struct Theos {
+    let path: String
+    let resources: String
+    let sdk: String
+    let target: String
+    
+    init() {
+        let configURL: URL = .init(fileURLWithPath: #filePath)
+            .deletingLastPathComponent()
+            .appendingPathComponent(".theos")
+            .appendingPathComponent("spm_config")
+        
+        guard let data: Data = try? .init(contentsOf: configURL),
+              let lines: [String] = String(data: data, encoding: .utf8)?.components(separatedBy: "\n"),
+              let tmpPath: String = lines[0].components(separatedBy: "=").last,
+              let tmpSdk: String = lines[1].components(separatedBy: "=").last,
+              let tmpTarget: String = lines[2].components(separatedBy: "=").last,
+              let tmpResources: String = lines[3].components(separatedBy: "=").last
+        else {
+            path = ("~/theos" as NSString).expandingTildeInPath
+            resources = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/swift"
+            sdk = path + "/sdks/iPhoneOS16.0.sdk/"
+            target = "12.2"
+            
+            return
         }
-        let pairs = infoString.split(separator: "\n").map {
-            $0.split(
-                separator: "=", maxSplits: 1,
-                omittingEmptySubsequences: false
-            ).map(String.init)
-        }.map { ($0[0], $0[1]) }
-        dict = Dictionary(uniqueKeysWithValues: pairs)
+        
+        path = tmpPath
+        resources = tmpResources
+        sdk = tmpSdk
+        target = tmpTarget
     }
-    subscript(
-        key: String,
-        or defaultValue: @autoclosure () -> String? = nil
-    ) -> String {
-        if let value = dict[key] {
-            return value
-        } else if let def = defaultValue() {
-            return def
-        } else {
-            fatalError("""
-            Could not get value of key '\(key)' from Theos SPM config. \
-            Try running `make spm` again.
-            """)
-        }
-    }
-    subscript(dynamicMember key: String) -> String { self[key] }
 }
-let conf = TheosConfiguration(at: ".theos/spm_config")
 
-let theosPath = conf.theos
-let sdk = conf.sdk
-let resourceDir = conf.swiftResourceDir
-let deploymentTarget = conf.deploymentTarget
-let triple = "arm64-apple-ios\(deploymentTarget)"
+let theos: Theos = .init()
+let theosPath: String = theos.path
 
-let libFlags: [String] = [
-    "-F\(theosPath)/vendor/lib", "-F\(theosPath)/lib",
-    "-I\(theosPath)/vendor/include", "-I\(theosPath)/include"
-]
-
-let cFlags: [String] = libFlags + [
-    "-target", triple, "-isysroot", sdk,
-    "-Wno-unused-command-line-argument", "-Qunused-arguments",
-]
-
-let cxxFlags: [String] = [
-]
-
-let swiftFlags: [String] = libFlags + [
-    "-target", triple, "-sdk", sdk, "-resource-dir", resourceDir,
+let swiftFlags: [String] = [
+    "-F\(theosPath)/vendor/lib",
+    "-F\(theosPath)/lib",
+    "-I\(theosPath)/vendor/include",
+    "-I\(theosPath)/include",
+    "-target", "arm64-apple-ios\(theos.target)",
+    "-sdk", theos.sdk,
+    "-resource-dir", theos.resources
 ]
 
 let package = Package(
     name: "SatellaJailed",
-    platforms: [.iOS(deploymentTarget)],
+    platforms: [.iOS(theos.target)],
     products: [
         .library(
             name: "SatellaJailed",
             targets: ["SatellaJailed"]
         ),
     ],
+    dependencies: [
+        .package(url: "https://github.com/Paisseon/Jinx.git", from: "1.0.0")
+    ],
     targets: [
         .target(
-            name: "SatellaJailedC",
-            cSettings: [.unsafeFlags(cFlags)],
-            cxxSettings: [.unsafeFlags(cxxFlags)]
-        ),
-        .target(
             name: "SatellaJailed",
-            dependencies: ["SatellaJailedC"],
+            dependencies: [.product(name: "Jinx", package: "Jinx")],
             swiftSettings: [.unsafeFlags(swiftFlags)]
-        ),
+        )
     ]
 )

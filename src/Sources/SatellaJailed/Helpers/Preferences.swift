@@ -1,7 +1,5 @@
 import Foundation
 
-// MARK: Fetch prefs values using UserDefaults
-
 final class Preferences {
     // MARK: Lifecycle
 

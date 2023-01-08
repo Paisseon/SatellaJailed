@@ -1,3 +1,4 @@
+import Jinx
 import StoreKit
 
 struct TransactionIdentifier: Hook {
@@ -6,7 +7,7 @@ struct TransactionIdentifier: Hook {
         Selector
     ) -> String
 
-    let `class`: AnyClass = SKPaymentTransaction.self
+    let `class`: AnyClass? = SKPaymentTransaction.self
     let selector: Selector = #selector(getter: SKPaymentTransaction.transactionIdentifier)
     let replacement: T = { _, _ in
         UUID().uuidString

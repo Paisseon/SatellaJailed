@@ -1,11 +1,11 @@
 struct Receipt: Encodable {
     let receiptType: String
-    let adamId: Int64
-    let appItemId: Int64
-    let bundleId: String
+    let adamID: Int64
+    let appItemID: Int64
+    let bundleID: String
     let applicationVersion: String
-    let downloadId: Int
-    let versionExternalIdentifier: Int
+    let downloadID: Int
+    let versionExternalIDentifier: Int
     let receiptCreationDate: String
     let receiptCreationDateMs: String
     let receiptCreationDatePst: String
@@ -20,12 +20,12 @@ struct Receipt: Encodable {
     
     enum CodingKeys: String, CodingKey {
         case receiptType = "receipt_type"
-        case adamId = "adam_id"
-        case appItemId = "app_item_id"
-        case bundleId = "bundle_id"
+        case adamID = "adam_id"
+        case appItemID = "app_item_id"
+        case bundleID = "bundle_id"
         case applicationVersion = "application_version"
-        case downloadId = "download_id"
-        case versionExternalIdentifier = "version_external_identifier"
+        case downloadID = "download_id"
+        case versionExternalIDentifier = "version_external_identifier"
         case receiptCreationDate = "receipt_creation_date"
         case receiptCreationDateMs = "receipt_creation_date_ms"
         case receiptCreationDatePst = "receipt_creation_date_pst"

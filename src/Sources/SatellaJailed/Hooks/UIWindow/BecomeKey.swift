@@ -1,3 +1,4 @@
+import Jinx
 import UIKit
 
 @available(iOS 14, *)
@@ -7,10 +8,10 @@ struct BecomeKey: Hook {
         Selector
     ) -> Void
 
-    let `class`: AnyClass = UIWindow.self
+    let `class`: AnyClass? = UIWindow.self
     let selector: Selector = #selector(UIWindow.becomeKey)
     let replacement: T = { `self`, cmd in
-        let orig: T = PowPow.unwrap(BecomeKey.self)!
+        let orig: T = PowPow.orig(BecomeKey.self)!
         
         orig(`self`, cmd)
         

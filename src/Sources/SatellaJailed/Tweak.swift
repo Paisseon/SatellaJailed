@@ -1,8 +1,7 @@
+import Jinx
 import UIKit
 
 struct Tweak {
-    static let config: Config = .jinx
-    
     static func ctor() {
         let prefs: Preferences = .shared
         
@@ -29,7 +28,7 @@ struct Tweak {
             BecomeKey().hook(onlyIf: prefs.isGesture)
         }
         
-        if !prefs.isEnabled {
+        guard prefs.isEnabled else {
             return
         }
         
@@ -42,10 +41,10 @@ struct Tweak {
         
         ErrorGetter().hook()
         MatchingIdentifier().hook()
+        TransactionDate().hook()
         TransactionIdentifier().hook()
         TransactionReceipt().hook(onlyIf: prefs.isReceipt)
         TransactionState().hook()
-        TransactionDate().hook()
         
         // SKProductsRequest
         
@@ -64,4 +63,9 @@ struct Tweak {
         DyldGetImageName().hook(onlyIf: prefs.isStealth)
         ObjcGetClass().hook(onlyIf: prefs.isStealth)
     }
+}
+
+@_cdecl("jinx_entry")
+func jinx_entry() {
+    Tweak.ctor()
 }

@@ -1,8 +1,8 @@
 struct ReceiptInfo: Encodable {
     let quantity: String
-    let productId: String
-    let transactionId: String
-    let originalTransactionId: String
+    let productID: String
+    let transactionID: String
+    let originalTransactionID: String
     let purchaseDate: String
     let purchaseDateMs: String
     let purchaseDatePst: String
@@ -17,9 +17,9 @@ struct ReceiptInfo: Encodable {
     
     enum CodingKeys: String, CodingKey {
         case quantity = "quantity"
-        case productId = "product_id"
-        case transactionId = "transaction_id"
-        case originalTransactionId = "original_transaction_id"
+        case productID = "product_id"
+        case transactionID = "transaction_id"
+        case originalTransactionID = "original_transaction_id"
         case purchaseDate = "purchase_date"
         case purchaseDateMs = "purchase_date_ms"
         case purchaseDatePst = "purchase_date_pst"
