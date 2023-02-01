@@ -3,10 +3,6 @@
 
 Satella Jailed is provided for educational purposes only and I am not responsible for any illegal actions taken with the use of this tool. No copyright material is distributed on this repo. Lawyer with a DMCA can stick it up their ass.
 
-I am also not responsible for Satella Jailed not working on any given app. Try the app “Fight Club 5” before contacting me or making an issue. I also recommend trying several configurations.
-
-Devices on a version earlier than iOS 14.0 will not have the floating preferences menu. If you are on 12-13 there is no reason to be using this as Satella works better for jailbroken devices.
-
 # Installation
 There are currently two official methods of installing Satella Jailed, but it should work with other methods just like any tweak.
 
@@ -34,3 +30,7 @@ I haven’t personally tested any other .ipa patcher, but they should work just 
 3. Inject SatellaJailed.dylib into the .ipa
 4. Sideload the patched app to your jailed device
 
+# Usage
+Just attempt to make a purchase, then cancel the confirmation popup (the one with your Apple ID on it) so you don't pay.
+
+By default, core functionality is enabled. If it doesn't work, and you are on iOS 14+, you can try enabling features such as receipt spoofer, observer, etc. by tapping the purple star. If the purple star doesn't show up, try tapping with 3 fingers. If that doesn't work, the app has a weird issue with UIWindow and idk how to fix those 🤷‍♀️
