@@ -14,7 +14,7 @@ There are currently two official methods of installing Satella Jailed, but it sh
 5. Sideload the patched app to your jailed device
 
 ## Esign (On-Device)
-If you don’t already have it, Esign can be installed from [this website]
+If you don’t already have it, Esign can be installed from [this website](https://esign.yyyue.xyz/)
 
 1. Get a *decrypted* .ipa for the app you want to modify
 2. Download SatellaJailed.dylib from this repo
