@@ -33,4 +33,4 @@ I haven’t personally tested any other .ipa patcher, but they should work just 
 # Usage
 Just attempt to make a purchase, then cancel the confirmation popup (the one with your Apple ID on it) so you don't pay.
 
-By default, core functionality is enabled. If it doesn't work, and you are on iOS 14+, you can try enabling features such as receipt spoofer, observer, etc. by tapping the purple star. If the purple star doesn't show up, try tapping with 3 fingers. If that doesn't work, the app has a weird issue with UIWindow and idk how to fix those 🤷‍♀️
+By default, core functionality is enabled. If it doesn't work, and you are on iOS 14+, you can try enabling features such as receipt spoofer, observer, etc. by tapping the purple star. If it still doesn't work, then it is likely a server-sided purchase and Satella will not work. If the purple star doesn't show up, try tapping with 3 fingers. If that doesn't work, the app has a weird issue with UIWindow and idk how to fix those 🤷‍♀️
