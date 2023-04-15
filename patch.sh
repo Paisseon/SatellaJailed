@@ -83,7 +83,7 @@ fi
 
 # Inject SatellaJailed to the app using Azule
 
-azule -n "$output" -i "$ipa" -o ./ -f ./SatellaJailed.dylib -muvwz | sed -u -r "s/(\[\*\])/$(echo $info)/g"
+azule -n "$output" -i "$ipa" -o ./ -f "$PWD/SatellaJailed.dylib" -muvwz | sed -u -r "s/(\[\*\])/$(echo $info)/g"
 
 # Transfer to device if the -x flag is enabled
 
