@@ -4,33 +4,31 @@
 Satella Jailed is provided for educational purposes only and I am not responsible for any illegal actions taken with the use of this tool. No copyright material is distributed on this repo. Lawyer with a DMCA can stick it up their ass.
 
 # Installation
-There are currently two official methods of installing Satella Jailed, but it should work with other methods just like any tweak.
+There are currently three official methods of installing Satella Jailed, but it should work with other patching tools.
 
-## Azule Script (Computer or Jailbreak Required)
-1. Get a *decrypted* .ipa for the app you want to modify
-2. `git clone https://github.com/Paisseon/SatellaJailed.git && cd SatellaJailed`
-3. Move the .ipa into the SatellaJailed folder
-4. `sh patch.sh`
-5. Sideload the patched app to your jailed device
+## Script (Computer Required)
+1. Run `git clone https://github.com/Paisseon/SatellaJailed.git && cd SatellaJailed` in terminal
+2. Move the IPA file to the resultant SatellaJailed folder
+3. `sh patch-mac.sh` for macOS *or* `sh patch-linux.sh` for Linux and WSL
+4. Sideload the patched IPA to your jailed device
+
+## Azula (Mac *or* On-Device)
+If you use TrollStore, make sure that the URL scheme is enabled, and turn on code signature slicing. Or just jailbreak with Dopamine and use the tweak version 🙃
+
+1. Download SatellaJailed.dylib from this repo
+2. Move SatellaJailed.dylib and the target IPA to the Azula folder in files app
+3. Select them in Azula
+4. Tap the Patch button
 
 ## Esign (On-Device)
-If you don’t already have it, Esign can be installed from [this website](https://esign.yyyue.xyz/)
-
-1. Get a *decrypted* .ipa for the app you want to modify
-2. Download SatellaJailed.dylib from this repo
-3. In Signature -> More Settings, import SatellaJailed.dylib
-4. In Signature -> More Settings, make sure to use “@executable\_path” and “Frameworks”
-5. Sign and install the patched .ipa
-
-## Other .ipa Patchers
-I haven’t personally tested any other .ipa patcher, but they should work just as well as the two tested methods.
-
-1. Get a *decrypted* .ipa for the app you want to modify
-2. Download SatellaJailed.dylib from this repo
-3. Inject SatellaJailed.dylib into the .ipa
-4. Sideload the patched app to your jailed device
+1. Download SatellaJailed.dylib from this repo
+2. In Signature -\> More Settings, import SatellaJailed.dylib
+3. Make sure to use “@executable\_path” and “Frameworks”
+4. Sign and install the patched IPA
 
 # Usage
 Just attempt to make a purchase, then cancel the confirmation popup (the one with your Apple ID on it) so you don't pay.
 
-By default, core functionality is enabled. If it doesn't work, and you are on iOS 14+, you can try enabling features such as receipt spoofer, observer, etc. by tapping the purple star. If it still doesn't work, then it is likely a server-sided purchase and Satella will not work. If the purple star doesn't show up, try tapping with 3 fingers. If that doesn't work, the app has a weird issue with UIWindow and idk how to fix those 🤷‍♀️
+By default, core functionality is enabled. If it doesn't work, and you are on iOS 15+, you can try enabling advanced features by tapping the purple star.
+
+Please note that Satella Jailed doesn’t work on every app. If various combinations of settings fail to crack the purchase, you’re out of luck.

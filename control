@@ -1,0 +1,12 @@
+Package: lilliana.satellajailed
+Name: SatellaJailed
+Version: 0.0.1
+Architecture: iphoneos-arm
+Description: An awesome Jinx tweak!
+Maintainer: Lilliana
+Author: Lilliana
+Section: Tweaks
+Depends: mobilesubstrate, firmware (>= 12.2)
+SileoDepiction: https://paisseon.github.io/depictions/SatellaJailed.json
+Depiction: https://pinpal.github.io/Sileo-Depiction-WebViews/?json=https://paisseon.github.io/depictions/SatellaJailed.json&name=SatellaJailed&dev=Lilliana
+Icon: https://paisseon.github.io/icons/SatellaJailed.png
